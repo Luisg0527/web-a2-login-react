@@ -1,0 +1,28 @@
+.home-wrapper {
+  padding: 32px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.home-cards {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.home-card {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.home-card h3 {
+  margin: 0 0 8px 0;
+  color: #1976d2;
+}
+
+.home-card p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
