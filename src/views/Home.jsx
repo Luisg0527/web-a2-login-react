@@ -1,7 +1,9 @@
 import React from 'react'
 import './Home.css'
 
-const Home = () => {
+const Home = ({ user }) => {
+  const displayName = user?.name?.trim() || user?.username || '—'
+
   return (
     <div className="home-wrapper">
       <h1>Bienvenido</h1>
@@ -9,12 +11,12 @@ const Home = () => {
 
       <div className="home-cards">
         <div className="home-card">
-          <h3>Usuarios</h3>
-          <p>Total: 128</p>
+          <h3>Usuario</h3>
+          <h4>{displayName}</h4>
         </div>
         <div className="home-card">
-          <h3>Ventas</h3>
-          <p>Total: $4,200</p>
+          <h3>Id</h3>
+          <h4>{user._id}</h4>
         </div>
         <div className="home-card">
           <h3>Pedidos</h3>

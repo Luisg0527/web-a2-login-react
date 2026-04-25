@@ -18,6 +18,12 @@
   min-width: 320px;
 }
 
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .login-box h2 {
   margin: 0 0 8px 0;
   text-align: center;
