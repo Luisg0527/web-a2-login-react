@@ -1,0 +1,22 @@
+:root {
+  --nx-primary: #00278d;
+  --nx-primary-container: #193db3;
+  --nx-primary-fixed: #dde1ff;
+  --nx-on-primary: #ffffff;
+  --nx-on-primary-fixed: #001354;
+  --nx-on-surface: #191c1e;
+  --nx-on-surface-variant: #444653;
+  --nx-on-secondary-container: #54647a;
+  --nx-background: #f7f9fb;
+  --nx-surface: #f7f9fb;
+  --nx-surface-container: #eceef0;
+  --nx-surface-container-low: #f2f4f6;
+  --nx-surface-container-lowest: #ffffff;
+  --nx-secondary-container: #d0e1fb;
+  --nx-outline-variant: #c4c5d6;
+  --nx-max-width: 1280px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
