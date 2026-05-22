@@ -6,8 +6,8 @@ import Admin from './views/Admin'
 import ResponsiveAppBar from './components/NavBar'
 import { useEffect, useState } from 'react'
 
-//const API_URL = "https://web-a5-hashing-production.up.railway.app"
-const API_URL = "http://localhost:8000"
+const API_URL = "https://web-a5-hashing-production.up.railway.app"
+//const API_URL = "http://localhost:8000"
 
 function App() {
   const [isLogin, setIsLogin] = useState(false)
