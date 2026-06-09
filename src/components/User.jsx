@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const AVATAR_VARIANTS = [
   'admin-initials--primary',
   'admin-initials--tertiary',
@@ -22,7 +24,11 @@ const User = ({ user, delUser, index = 0 }) => {
 
   return (
     <tr className="admin-table-row">
-      <td className="admin-table-id">{user._id}</td>
+      <td className="admin-table-id">
+        <Link to={`/users/${user._id}?react=889`} className="admin-table-id-link">
+          {user._id}
+        </Link>
+      </td>
       <td>
         <div className="admin-user-cell">
           <div className={`admin-initials ${avatarClass}`}>{initials}</div>

@@ -4,86 +4,26 @@ import Login from './views/Login'
 import Home from './views/Home'
 import Admin from './views/Admin'
 import ResponsiveAppBar from './components/NavBar'
+import Details from './components/Details'
+import LifeCycle from './components/LifeCycle'
+import useAuth from './hooks/useAuth'
+import useAdmin from './hooks/useAdmin'
 import { useEffect, useState } from 'react'
 
-const API_URL = "https://web-a5-hashing-production.up.railway.app"
-//const API_URL = "http://localhost:8000"
-
 function App() {
-  const [isLogin, setIsLogin] = useState(false)
-  const [user, setUser] = useState({})
-  const [token, setToken] = useState("")
-  const [users, setUsers] = useState([])
+  const [show, setShow] = useState(false)
+  const { isLogin, token, user, login, logout: authLogout } = useAuth()
+  const { users, getUsers, delUser, addUser, clearUsers } = useAdmin(token)
 
   useEffect(() => {
     if (isLogin && token) {
-      const getUsers = async () => {
-        const res = await fetch(API_URL + "/users", {
-          headers: { authorization: token }
-        })
-        const data = await res.json()
-        setUsers(Array.isArray(data) ? data : data.users ?? [])
-      }
       getUsers()
     }
-  }, [isLogin, token])
-
-  const login = async (credentials) => {
-    const res = await fetch(API_URL + "/login", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(credentials)
-    })
-
-    const raw = await res.text()
-    let data
-    try {
-      data = raw ? JSON.parse(raw) : {}
-    } catch {
-      data = {
-        login: false,
-        msg: `Respuesta no JSON (${res.status}). ¿El API está en ${API_URL}?`,
-        user: {}
-      }
-    }
-
-    const didLogin = data.login ?? data.isLogin ?? false
-    setIsLogin(didLogin)
-    setUser(data.user ?? {})
-    setToken(data.token ?? "")
-    return data
-  }
-
-  const delUser = async (id) => {
-    setUsers(users.filter((u) => u._id !== id))
-    await fetch(API_URL + "/users/" + id, {
-      headers: { authorization: token },
-      method: "DELETE"
-    })
-  }
-
-  const addUser = async (newUser) => {
-    const res = await fetch(API_URL + "/users", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: token
-      },
-      body: JSON.stringify(newUser)
-    })
-
-    const data = await res.json()
-    const added = data.users ?? data.user
-    if (added) {
-      setUsers((prev) => [...prev, added])
-    }
-  }
+  }, [isLogin, token, getUsers])
 
   const logout = () => {
-    setIsLogin(false)
-    setUser({})
-    setToken("")
-    setUsers([])
+    authLogout()
+    clearUsers()
   }
 
   return (
@@ -107,8 +47,20 @@ function App() {
                 : <Navigate to='/' replace />
             }
           />
+          <Route
+            path='/users/:username'
+            element={isLogin ? <Details /> : <Navigate to='/' replace />}
+          />
         </Routes>
       </BrowserRouter>
+      <button
+        type="button"
+        className="lifecycle-toggle"
+        onClick={() => setShow(!show)}
+      >
+        {show ? 'hide' : 'show'}
+      </button>
+      {show && <LifeCycle />}
     </div>
   )
 }
